@@ -1,1 +1,1 @@
-peewee --no-binary=:all:
+peewee
