@@ -1,2 +1,1 @@
-wheel
-peewee
+peewee --no-binary=:all:
