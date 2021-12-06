@@ -23,6 +23,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: Python Unit Test
+      - uses: onichandame/python-test-action@0.0.0
+
 
       # Runs a single command using the runners shell
       - name: unit-tests
@@ -31,5 +34,5 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: integration
         run: |
-          python -m unittest /Librabobus/Tests/IntTests/integration_tests.py,
-          python -m unittest /Librabobus/Tests/IntTests/integration_tests_mock.py,
+          python -m unittest Librabobus/Tests/IntTests/integration_tests.py,
+          python -m unittest Librabobus/Tests/IntTests/integration_tests_mock.py,
