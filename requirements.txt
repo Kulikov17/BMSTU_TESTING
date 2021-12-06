@@ -1,4 +1,3 @@
-event --pre
 auto-py-to-exe
 wheel
 peewee==3.14.4
