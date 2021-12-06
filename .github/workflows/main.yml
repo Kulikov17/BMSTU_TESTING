@@ -11,6 +11,8 @@ jobs:
         uses: actions/checkout@master
       - name: Init
         uses: onichandame/python-test-action@master
+        run: |
+          setup.py bdist_wheel
          # Runs a set of commands using the runners shell
       - name: integration
         run: |
