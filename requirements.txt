@@ -1,2 +1,1 @@
 peewee>=3.14.4
-unittest>=3.10.0
