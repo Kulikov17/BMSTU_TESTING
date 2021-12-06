@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 
-from peewee import SqliteDatabase
+import peewee
 
 from Librabobus.Models.Record import RecordModelDB
 from Librabobus.Models.Subject import SubjectModelDB
@@ -64,7 +64,7 @@ class TestUserAndSubjectAndRecordService(unittest.TestCase):
         self.recordService = RecordService('mocklibrabobus.db')
 
 def creation_mock():
-    database = SqliteDatabase('mocklibrabobus.db')
+    database = peewee.SqliteDatabase('mocklibrabobus.db')
     database_proxy.initialize(database)
     database.drop_tables([UserModelDB, SubjectModelDB, RecordModelDB])
     database.create_tables([UserModelDB, SubjectModelDB, RecordModelDB])
