@@ -1,6 +1,5 @@
-from peewee import SqliteDatabase
-
 from ..Entities.Record import Record
+from ..Logs.log import logger
 from ..Models.Record import RecordModelDB
 from ..db_settings import database_proxy, database_connect
 
@@ -16,6 +15,7 @@ class RecordRepository:
     def findById(self, id):
         try:
             record = self.RecordModelDB.get(RecordModelDB.id == id)
+            logger.info("Record was received")
             return Record(
                     id=record.id,
                     subjectId=record.subjectId,
@@ -25,6 +25,7 @@ class RecordRepository:
                     content=record.content
                 )
         except:
+            logger.warning("Record wasn't received")
             return None
 
 
@@ -40,10 +41,11 @@ class RecordRepository:
                 keywords=record.keywords,
                 content=record.content
             ))
+        logger.info("Record was received")
         return result
 
     def findBySubjectId(self, subjectId):
-        records = self.RecordModelDB.select().where(RecordModelDB.ownerId == subjectId)
+        records = self.RecordModelDB.select().where(RecordModelDB.subjectId == subjectId)
         result = []
         for record in records:
             result.append(Record(
@@ -54,6 +56,7 @@ class RecordRepository:
                 keywords=record.keywords,
                 content=record.content
             ))
+        logger.info("Record was received")
         return result
 
     def create(self, newRecord):
@@ -66,6 +69,7 @@ class RecordRepository:
                 content=newRecord.content
             )
             record.save()
+            logger.info("Record was created")
             return Record(
                 id=record.id,
                 subjectId=record.subjectId,
@@ -75,6 +79,7 @@ class RecordRepository:
                 content=record.content
             )
         except:
+            logger.warning("Record wasn't created")
             return None
 
 
@@ -86,6 +91,7 @@ class RecordRepository:
             record.keywords = updateRecord.keywords
             record.content = updateRecord.content
             record.save()
+            logger.info("Record was updated")
             return  Record(
                 id=record.id,
                 subjectId=record.subjectId,
@@ -95,11 +101,14 @@ class RecordRepository:
                 content=record.content
             )
         except:
+            logger.warning("Record wasn't updated")
             return None
 
     def delete(self, id):
         try:
             record = self.RecordModelDB.get(RecordModelDB.id == id)
+            logger.info("Record was deleted")
             return record.delete_instance()
         except:
+            logger.warning("Record wasn't deleted")
             return None

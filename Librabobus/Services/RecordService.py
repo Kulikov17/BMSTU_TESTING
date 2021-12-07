@@ -18,8 +18,8 @@ class RecordService:
             content=record.content
         )
 
-    def get_recordsByOwnerId(self, ownerId):
-        records = self.recordRepository.findAll()
+    def get_records_by_subjectId(self, subjectId):
+        records = self.recordRepository.findBySubjectId(subjectId)
         result = []
         for record in records:
             result.append(RecordDto(

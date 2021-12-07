@@ -1,7 +1,6 @@
 import unittest
 
-#from Librabobus.Repositories.UserRepository import UserRepository
-from peewee import SqliteDatabase, IntegrityError
+from peewee import SqliteDatabase
 
 from Librabobus.Models.Record import RecordModelDB
 from Librabobus.Models.Subject import SubjectModelDB
@@ -25,15 +24,18 @@ class AddUserTestSuite(unittest.TestCase):
     def test_create_user_negative(self):
         #arrange
         user = UserBuilder(id=1, login='test@bmstu.ru', name='test', password='test').build()
+
+        #act
+        self.userRepository.create(user)
+        new_user = self.userRepository.create(user)
+
         #assert
-        with (self.assertRaises(IntegrityError)):
-            #act
-            self.userRepository.create(user)
-            self.userRepository.create(user)
+        self.assertIsNone(new_user)
 
     def setUp(self):
         creation_mock()
         self.userRepository = UserRepository('mocklibrabobus.db')
+
 
 
 class DeleteUserTestSuite(unittest.TestCase):
@@ -101,6 +103,7 @@ class UpdateUserTestSuite(unittest.TestCase):
         user = UserBuilder(id=1, login='test@bmstu.ru', name='test', password='test').build()
 
         #act
+        self.userRepository.create(user)
         update_user = self.userRepository.update(user)
 
         # assert
@@ -109,11 +112,12 @@ class UpdateUserTestSuite(unittest.TestCase):
     def test_update_user_negative(self):
         #arrange
         user = UserBuilder(id=1, login='test@bmstu.ru', name='test', password='test').build()
-        #assert
-        with (self.assertRaises(IntegrityError)):
-            #act
-            self.userRepository.create(user)
-            self.userRepository.create(user)
+
+        #act
+        update_user = self.userRepository.update(user)
+
+        # assert
+        self.assertIsNone(update_user)
 
     def setUp(self):
         creation_mock()

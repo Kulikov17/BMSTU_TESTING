@@ -2,7 +2,7 @@ from Librabobus.Dtos.UserDto import UserDto
 from Librabobus.Entities.User import User
 from Librabobus.Repositories.SubjectRepository import SubjectRepository
 from Librabobus.Repositories.UserRepository import UserRepository
-
+from Librabobus.Logs.log import logger
 
 class UserService:
     def __init__(self, url):
@@ -12,6 +12,7 @@ class UserService:
     def get_user(self, id):
         try:
             user = self.userRepository.findById(id)
+            logger.info("User was received")
             return UserDto(
                 id=user.id,
                 login=user.login,
@@ -19,6 +20,7 @@ class UserService:
                 about=user.about
             )
         except:
+            logger.warning("User wasn't received")
             return None
 
     def get_users(self):
@@ -32,8 +34,10 @@ class UserService:
                     name=user.name,
                     about=user.about
                 ))
+            logger.info("User was received")
             return result
         except:
+            logger.warning("User wasn't received")
             return None
 
     def create_user(self, createUserDto):
@@ -45,6 +49,7 @@ class UserService:
         )
         try:
             user = self.userRepository.create(newUser)
+            logger.info("User was created")
             return UserDto(
                 id=user.id,
                 login=user.login,
@@ -52,6 +57,7 @@ class UserService:
                 about=user.about
             )
         except:
+            logger.warning("User wasn't created")
             return None
 
     def update_user(self, updateUserDto):
@@ -61,6 +67,7 @@ class UserService:
         )
         try:
             user = self.userRepository.update(updateUser)
+            logger.info("User was updated")
             return UserDto(
                 id=user.id,
                 login=user.login,
@@ -68,11 +75,14 @@ class UserService:
                 about=user.about
             )
         except:
+            logger.warning("User wasn't updated")
             return None
 
     def delete_user(self, id):
         try:
             countDelete = self.userRepository.delete(id)
+            logger.info("User was deleted")
             return countDelete
         except:
-            None
+            logger.warning("User wasn't deleted")
+            return None

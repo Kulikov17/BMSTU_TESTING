@@ -1,4 +1,5 @@
 from ..Entities.Subject import Subject
+from ..Logs.log import logger
 from ..Models.Subject import SubjectModelDB
 from ..db_settings import database_proxy, database_connect
 
@@ -14,6 +15,7 @@ class SubjectRepository:
     def findById(self, id):
         try:
             subject = self.SubjectModelDB.get(SubjectModelDB.id == id)
+            logger.info("Subject was received")
             return Subject(
                 id=subject.id,
                 ownerId=subject.ownerId,
@@ -22,6 +24,7 @@ class SubjectRepository:
                 description=subject.description
             )
         except:
+            logger.warning("Subject wasn't received")
             return None
 
 
@@ -36,6 +39,7 @@ class SubjectRepository:
                 name=subject.name,
                 description=subject.description
             ))
+        logger.info("Subject was received")
         return result
 
 
@@ -48,6 +52,7 @@ class SubjectRepository:
                 description=newSubject.description
             )
             subject.save()
+            logger.info("Subject was created")
             return Subject(
                 id=subject.id,
                 ownerId=subject.ownerId,
@@ -56,6 +61,7 @@ class SubjectRepository:
                 description=subject.description
             )
         except:
+            logger.warning("Subject wasn't created")
             return None
 
 
@@ -66,6 +72,7 @@ class SubjectRepository:
             subject.name = updateSubject.name,
             subject.description = updateSubject.description
             subject.save()
+            logger.info("Subject was updated")
             return Subject(
                 id=subject.id,
                 ownerId=subject.ownerId,
@@ -74,13 +81,16 @@ class SubjectRepository:
                 description=subject.description
             )
         except:
+            logger.warning("Subject wasn't updated")
             return None
 
     def delete(self, id):
         try:
             subject = self.SubjectModelDB.get(SubjectModelDB.id == id)
+            logger.info("Subject was deleted")
             return subject.delete_instance()
         except:
+            logger.warning("Subject wasn't deleted")
             return None
 
     def findByOwnerId(self, ownerId):
@@ -94,4 +104,5 @@ class SubjectRepository:
                 name=subject.name,
                 description=subject.description
             ))
+        logger.info("Subject was received")
         return result

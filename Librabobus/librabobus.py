@@ -1,5 +1,6 @@
 from peewee import SqliteDatabase
-
+import logging.config
+from Librabobus.Logs.log_config import log_config
 from Librabobus.Controllers.RecordController import RecordController
 from Librabobus.Controllers.SubjectController import SubjectController
 from Librabobus.Controllers.UserController import UserController
@@ -8,7 +9,7 @@ from Librabobus.Models.Record import RecordModelDB
 from Librabobus.Models.Subject import SubjectModelDB
 from Librabobus.Models.User import UserModelDB
 from Librabobus.db_settings import database_proxy
-
+from Librabobus.Logs.log import logger
 
 class ConsoleApp:
     def __init__(self, url='librabobus.db'):

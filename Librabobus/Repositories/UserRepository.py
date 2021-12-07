@@ -1,5 +1,6 @@
 from Librabobus.Models.User import UserModelDB
 from ..Entities.User import User
+from ..Logs.log import logger
 from ..db_settings import database_proxy, database_connect
 
 
@@ -15,6 +16,7 @@ class UserRepository:
     def findById(self, id):
         try:
             user = self.UserModelDB.get(UserModelDB.id == id)
+            logger.info("User was received")
             return User(
                 id=user.id,
                 login=user.login,
@@ -22,6 +24,7 @@ class UserRepository:
                 about=user.about
             )
         except:
+            logger.warning("User wasn't received")
             return None
 
     def findAll(self):
@@ -34,10 +37,11 @@ class UserRepository:
                 name=user.name,
                 about=user.about
             ))
+        logger.info("User was received")
         return result
 
     def create(self, newUser):
-        #try:
+        try:
             user = self.UserModelDB(
                 login=newUser.login,
                 name=newUser.name,
@@ -45,14 +49,16 @@ class UserRepository:
                 password=newUser.password
             )
             user.save()
+            logger.info("User was created")
             return User(
                 id=user.id,
                 login=user.login,
                 name=user.name,
                 about=user.about
             )
-        #except:
-            #return None
+        except:
+            logger.warning("User wasn't created")
+            return None
 
     def update(self, updateUser):
         try:
@@ -60,17 +66,21 @@ class UserRepository:
             user.name = updateUser.name,
             user.about = updateUser.about,
             user.save()
+            logger.info("User was updated")
             return User(
                 id=user.id,
                 name=user.name,
                 about=user.about
             )
         except:
+            logger.warning("User wasn't updated")
             return None
 
     def delete(self, id):
         try:
             user = self.UserModelDB.get(UserModelDB.id == id)
+            logger.info("User was deleted")
             return user.delete_instance()
         except:
+            logger.warning("User wasn't deleted")
             return 0

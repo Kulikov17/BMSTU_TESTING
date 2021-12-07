@@ -6,3 +6,12 @@ class RecordDto:
         self.name = name
         self.keywords = keywords
         self.content = content
+
+
+class CreateRecordDto:
+    def __init__(self, subjectId, type, name, keywords, content):
+        self.subjectId = subjectId
+        self.type = type
+        self.name = name
+        self.keywords = keywords
+        self.content = content
