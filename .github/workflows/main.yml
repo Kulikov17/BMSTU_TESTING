@@ -28,3 +28,7 @@ jobs:
           python -m unittest Librabobus/Tests/IntTests/integration_tests.py
           python -m unittest Librabobus/Tests/IntTests/integration_tests_mock.py
           
+      - name: e2e-test
+        run: |
+          python -m unittest Librabobus/Tests/E2E/testAll.py
+          
