@@ -1,0 +1,6 @@
+[2021-12-09 19:55:26,696]: INFO C:\Testing\Librabobus\Controllers\UserController.py func: create_user "Users was created"
+[2021-12-09 19:55:26,716]: INFO C:\Testing\Librabobus\Repositories\UserRepository.py func: create "User was created"
+[2021-12-09 19:55:26,717]: INFO C:\Testing\Librabobus\Services\UserService.py func: create_user "User was created"
+[2021-12-09 19:55:33,488]: INFO C:\Testing\Librabobus\Controllers\UserController.py func: get_users "Users was received"
+[2021-12-09 19:55:33,490]: INFO C:\Testing\Librabobus\Repositories\UserRepository.py func: findAll "User was received"
+[2021-12-09 19:55:33,490]: INFO C:\Testing\Librabobus\Services\UserService.py func: get_users "User was received"
